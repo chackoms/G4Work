@@ -1,0 +1,83 @@
+# Macro file for example B1
+#
+# Can be run in batch, without graphic
+# or interactively: Idle> /control/execute run1.mac
+#
+# Change the default number of workers (in multi-threading mode)
+/run/numberOfWorkers 4
+
+# Define dose scorer
+/score/create/boxMesh boxMesh_1
+/score/mesh/boxSize 5. 5. 15. cm
+/score/mesh/translate/xyz 0. 0. 0. cm
+/score/mesh/nBin 10 10 1000
+/score/quantity/doseDeposit dose
+#/score/quantity/flatSurfaceFlux flux0
+#/score/filter/particleWithKineticEnergy range0
+/score/close
+/score/list
+
+
+
+
+
+# Initialize kernel
+/run/initialize
+#
+/control/verbose 2
+/run/verbose 2
+/event/verbose 0
+/tracking/verbose 1
+
+
+#
+/gps/particle gamma
+/gps/ene/type Arb
+/gps/hist/type arb
+
+#/gps/hist/point 0.56 2654.0
+#/gps/hist/point 0.71 2016.0
+#/gps/hist/point 0.89 1834.0
+#/gps/hist/point 1.12 1699.0
+#/gps/hist/point 1.41 1597.0
+#/gps/hist/point 1.78 1461.0
+#/gps/hist/point 2.23 1322.0
+#/gps/hist/point 2.82 1209.0
+#/gps/hist/point 3.55 1102.0
+#/gps/hist/point 4.47 1016.0
+#/gps/hist/point 5.62 933.0
+#/gps/hist/point 7.08 864.0
+#/gps/hist/point 8.91 799.0
+#/gps/hist/point 11.22 711.0
+#/gps/hist/point 14.12 637.0
+#/gps/hist/point 17.78 537.0
+#/gps/hist/point 22.39 454.0
+#/gps/hist/point 28.18 363.0
+#/gps/hist/point 35.48 271.0
+#/gps/hist/point 44.67 184.0
+#/gps/hist/point 56.23 92.0
+#/gps/hist/point 70.79 39.0
+#/gps/hist/point 89.12 8.0
+
+/gps/hist/file histo.txt
+
+/gps/hist/inter Lin
+#/tracking/verbose 2
+#
+/run/beamOn 10
+/control/execute vis.mac
+
+# /vis/open OGL 600x600-0+0
+# /vis/sceneHandler/create OGL
+# /vis/viewer/create ! ! 600x600-0+0
+# /vis/viewer/refresh
+# /vis/scene/create
+# /vis/scene/add/volume world
+# /vis/sceneHandler/attach
+# /vis/viewer/set/style wireframe
+# /vis/viewer/set/auxiliaryEdge true
+# /vis/viewer/set/lineSegmentsPerCircle 100
+# /score/colorMap/setMinMax ! 0. 1.
+/score/drawProjection boxMesh_1 dose
+
+/score/dumpAllQuantitiesToFile boxMesh_1 dose1.csv

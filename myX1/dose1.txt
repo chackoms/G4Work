@@ -1,0 +1,4 @@
+# mesh name: boxMesh_1
+# primitive scorer name: dose
+# iX, iY, iZ, total(value) [Gy], total(val^2), entry
+0,0,0,4.963313022049612e-08,6.255590661333541e-19,4426
